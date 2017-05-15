@@ -160,7 +160,7 @@ if (! -d $build_root) {
 chdir $build_root or
     die "failed to switch to directory $build_root\n";
 
-my $tarball = "nginx-$version.tar.gz";
+my $tarball = "nginx-1.13.0.tar.gz";
 if ($force || ! -f $tarball || ! -d "nginx-$version") {
     if (!-d "$home/work") {
         mkdir "$home/work" or
@@ -176,6 +176,8 @@ if ($force || ! -f $tarball || ! -d "nginx-$version") {
     }
 
     shell("tar -xzvf $tarball");
+
+    shell("ln -s nginx-1.13.0 nginx-$version");
 
     apply_patches();
 }
@@ -305,9 +307,9 @@ sub apply_patches {
         shell("patch -p0 < $root/../openresty/patches/nginx-$version-upstream_truncation.patch");
     }
 
-    chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
-    shell("patch -p1 < $root/../openresty/patches/nginx-$version-dtrace.patch");
-    chdir ".." or die "cannot switch to ..\n";
+    #chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
+    #shell("patch -p1 < $root/../openresty/patches/nginx-$version-dtrace.patch");
+    #chdir ".." or die "cannot switch to ..\n";
 
     chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
     shell("patch -p1 < $root/../openresty/patches/nginx-$version-ssl_cert_cb_yield.patch");
@@ -456,9 +458,9 @@ sub apply_patches {
         chdir ".." or die "cannot switch to ..\n";
     }
 
-    chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
-    shell("patch -p1 < $root/../openresty/patches/nginx-$version-upstream_timeout_fields.patch");
-    chdir ".." or die "cannot switch to ..\n";
+    #chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
+    #shell("patch -p1 < $root/../openresty/patches/nginx-$version-upstream_timeout_fields.patch");
+    #chdir ".." or die "cannot switch to ..\n";
 
     if ($ver ge '001011002') {
         chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
@@ -473,9 +475,9 @@ sub apply_patches {
     }
 
     if ($ver ge '001011002') {
-        chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
-        shell("patch -p1 < $root/../openresty/patches/nginx-$version-single_process_graceful_exit.patch");
-        chdir ".." or die "cannot switch to ..\n";
+        #chdir "nginx-$version" or die "cannot switch to nginx-$version\n";
+        #shell("patch -p1 < $root/../openresty/patches/nginx-$version-single_process_graceful_exit.patch");
+        #chdir ".." or die "cannot switch to ..\n";
     }
 
     if ($ver ge '001011002') {
